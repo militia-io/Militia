@@ -1,0 +1,9 @@
+{
+"email" : "Facebook_email",
+"pass" : "Facebook_pass",
+"gmaps-api-key": "XXXXXXXXXXXXXXXXXXXXXXX",
+"consumer_key" : "XXXXXXXXXXXXXXXXXXXXXXXX(twitter)",
+"consumer_secret" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX(twitter)",
+"access_token" : "XXXXXXXX-XXXXXXXXXXXXXXXX(twitter)",
+"access_token_secret" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX(twitter)"
+}
