@@ -188,3 +188,4 @@ if __name__ == '__main__':
 	print '%d unique identities found.\n%d numbers unidentitified.' % (len(identityList),findUsers.failedCounter)
 	findUsers.write_data(identityList, search._output)
 	findUsers.edit_Gmap(gpsArray)
+	
