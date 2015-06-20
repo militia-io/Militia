@@ -1,10 +1,11 @@
 import json
 import mechanize
-
+import os
 class Load_FB:
 	#Facebook Mechanize session
 	def __init__(self):
-		with open('../config.json', 'r') as file:
+		confPath = BASE_DIR = os.path.dirname(os.path.dirname(__file__)) +'/config.json'
+		with open(confPath, 'r') as file:
 			config = json.load(file)
 		self._email = config['email']
 		self._pass = config['pass']
