@@ -4,7 +4,7 @@ import urllib2
 
 class wikiObj:
 	def __init__(self, name):
-    self.name = name
+    		self.name = name
 		try:
 			json_data = urllib2.urlopen('https://en.wikipedia.org/w/api.php?format=json&action=query&titles=%s&prop=revisions&rvprop=content' % (name))
 			self.data = json.load(json_data)
