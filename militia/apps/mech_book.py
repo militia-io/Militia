@@ -2,9 +2,10 @@
 
 import json
 import mechanize
-from fb_utils import Load_FB
+from militia.tools.facebook import Load_FB
 from bs4 import BeautifulSoup
 import urllib2
+import time
 import csv
 
 class Identity:
