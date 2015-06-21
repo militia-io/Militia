@@ -5,8 +5,8 @@ class twitterObj:
 
     # The consumer keys can be found on your application's details
     # page located at https://dev.twitter.com/apps (under "OAuth settings")
-    def __init__(self):
-        with open('../config.json', 'r') as file:
+    def __init__(self, configPath='../../config.json' ):
+        with open(configPath, 'r') as file:
             config = json.load(file)
         _consumer_key = config['consumer_key']
         _consumer_secret = config['consumer_secret']
