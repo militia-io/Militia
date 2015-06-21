@@ -11,6 +11,8 @@ pip install militia
 {
 "email" : "Facebook_email",
 "pass" : "Facebook_pass",
+"input_file" : "Input filepath",
+"output_file" : "Output filepath",
 "gmaps-api-key": "Key Found registering Google Maps API",
 "consumer_key" : "Key Found registering Twitter API",
 "consumer_secret" : "Secret Found registering Twitter API",
