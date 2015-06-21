@@ -1,16 +1,17 @@
 import json
 import mechanize
 import os
+
 class Load_FB:
 	#Facebook Mechanize session
-	def __init__(self):
-		confPath = BASE_DIR = os.path.dirname(os.path.dirname(__file__)) +'/config.json'
+	def __init__(self, confPath = '../config.json'):
+		#confPath = os.path.dirname(os.path.dirname(__file__)) +'/config.json'
 		with open(confPath, 'r') as file:
 			config = json.load(file)
 		self._email = config['email']
 		self._pass = config['pass']
 		# Set Location of data file
-		self._input = '../' + config['input_file']
+		self._input = config['input_file']
 		self._output = config['output_file']
 		self._api = config['gmaps-api-key']
 
@@ -33,5 +34,5 @@ class Load_FB:
 		
 if __name__ == '__main__': 
 	#Debugging
-	Load_FB()
+	Load_FB('../../config.json')
 	print Load_FB().read_Response()
