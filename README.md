@@ -2,11 +2,11 @@
 Intelligent and intuitive applications for analysts.
 
 ##Running Militia
-1. You can install using pypl
+You can install using pypl
 ```
 pip install militia
 ```
-2. Add your authentication to the config.json file in your local folder
+Add your authentication to the config.json file in your local folder
 ```
 {
 "email" : "Facebook_email",
@@ -18,7 +18,7 @@ pip install militia
 "access_token_secret" : "Secret Found registering Twitter API"
 }
 ```
-3. Run tests/tests.py to make sure your config is correct
+Run tests/tests.py to make sure your config is correct
 ```
 Facebook: Succeeded
 Twitter: Succeeded
