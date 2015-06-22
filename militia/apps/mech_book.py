@@ -87,11 +87,14 @@ class Identity:
 	def get_Job(self, url):
 
 		site = self.mechRead(url)
-		nameSplit1 = site.split('<div class="_42ef"><div><div class="_50f3">')[1]
-		nameSplit2 = nameSplit1.split('<span class="_50f8">')[0]
-		soup = BeautifulSoup(nameSplit2)
-		job = soup.getText()
-		return job.encode("utf-8")
+		try:
+			nameSplit1 = site.split('<div class="_42ef"><div><div class="_50f3">')[1]
+			nameSplit2 = nameSplit1.split('<span class="_50f8">')[0]
+			soup = BeautifulSoup(nameSplit2)
+			job = soup.getText()
+			return job.encode("utf-8")
+		except Exception:
+			return 'None'
 
 	def get_Intel(self, name, areaName):
 
@@ -149,9 +152,15 @@ class Identity:
 
 		jsArray = []
 		for gps in gpsArray:
-			gps = 'new google.maps.LatLng'+ str(gps)
+			gps = 'new google.maps.LatLng'+ str(gps)+'\n'
 			jsArray.append(gps)
-		print jsArray
+		jsArray = str(jsArray)
+		jsArray = jsArray.replace("'", "")
+		jsArray = jsArray.replace("[", "")
+		jsArray = jsArray.replace("]", "")
+		text_file = open("gps.txt", "w")
+		text_file.write(jsArray)
+		text_file.close()
 
 	def write_data(self, data, filename):
 
@@ -187,6 +196,6 @@ if __name__ == '__main__':
 	
 	print str(identityList)
 	print '%d unique identities found.\n%d numbers unidentitified.' % (len(identityList),findUsers.failedCounter)
-	findUsers.write_data(identityList, search._output)
+	findUsers.write_data(str(identityList), search._output)
 	findUsers.edit_Gmap(gpsArray)
 	
