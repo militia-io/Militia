@@ -15,8 +15,6 @@ class Find_Gender:
 			self.gender = 'None'
 			self.prob = 0.0
 			self.count = 0.0			
-	def get_Gender(self):
-		return self.gender
 
 if __name__ == '__main__':
 	x = Find_Gender('brian')
