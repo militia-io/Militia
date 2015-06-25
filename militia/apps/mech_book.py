@@ -3,10 +3,11 @@
 import json
 import mechanize
 from militia.tools.facebook import Load_FB
+from militia.tools.genderize import Find_Gender
 from bs4 import BeautifulSoup
 import urllib2
 import time
-import csv
+
 
 class Identity:
 
@@ -68,7 +69,6 @@ class Identity:
 			fullURL = nameSplit2.split('?ref=br_rs">')[0]
 			return fullURL
 		except Exception:
-			self.failedCounter +=1
 			return 'None'
 
 	def get_City(self, url):
@@ -112,7 +112,7 @@ class Identity:
 			site = sitetest.read()
 		except Exception:
 			print "%s : intellius error" % name 
-		return url.encode("utf-8")
+		return str(url)
 
 	def get_areaCode(self, number):
 
@@ -144,7 +144,6 @@ class Identity:
 
 
 	def get_phoneBook(self):
-
 		print "Phone numbers found: %s" % (len(self.phoneBook))
 		return self.phoneBook
 
@@ -152,7 +151,7 @@ class Identity:
 
 		jsArray = []
 		for gps in gpsArray:
-			gps = 'new google.maps.LatLng'+ str(gps)+'\n'
+			gps = 'new google.maps.LatLng'+ str(gps)
 			jsArray.append(gps)
 		jsArray = str(jsArray)
 		jsArray = jsArray.replace("'", "")
@@ -161,12 +160,19 @@ class Identity:
 		text_file = open("gps.txt", "w")
 		text_file.write(jsArray)
 		text_file.close()
-
+	def write_text(self, data, filename='log.txt'):
+		pass
 	def write_data(self, data, filename):
-
-		with open(filename, "wb") as f:
-		    writer = csv.writer(f)
-		    writer.writerows(data)
+	    with open(filename,'w') as f:
+		    for x in data:
+		        for y in x:
+					y = str(y)
+					f.write(y + ',')
+		        f.write('\n')
+	def genderCheck(self,name):
+		name = name.split()
+		x = Find_Gender(name[0])
+		return str(x.gender)
 
 if __name__ == '__main__':
 	#Site Test
@@ -186,16 +192,24 @@ if __name__ == '__main__':
 			areaName = findUsers.get_areaCode(phone)
 			intel = findUsers.get_Intel(name, areaName)
 			location = findUsers.get_GPS(areaName, search._api)
-
-			if [name,url] not in identityList:
+			gender = findUsers.genderCheck(name)
+			appendOut = [phone,name, gender,url,city,job,areaName,intel,location]
+			if appendOut not in identityList:
 				gpsArray.append(location)
-				identityList.append([name,url,city,job,areaName,intel,location])
+				identityList.append(appendOut)
 		else:
-			print 'Searching...'
+			findUsers.failedCounter +=1
+			print 'Searching... %s'%findUsers.failedCounter
 		time.sleep(delay)
+		findUsers.write_data(identityList, search._output)
+		findUsers.edit_Gmap(gpsArray)
 	
 	print str(identityList)
-	print '%d unique identities found.\n%d numbers unidentitified.' % (len(identityList),findUsers.failedCounter)
-	findUsers.write_data(str(identityList), search._output)
-	findUsers.edit_Gmap(gpsArray)
+	lenList= len(identityList)
+	print '%d profiles found.\n%d numbers unidentitified.\n%dnumbers tested total.' % (len(identityList),findUsers.failedCounter, len(identityList)+findUsers.failedCounter)
+	percent = float(lenList)
+	percent = (percent) / (percent + float(findUsers.failedCounter))
+	print '%f percent return rate on mobile numbers' % float(percent * 100.0)
+	#findUsers.write_data(identityList), search._output)
+	#findUsers.edit_Gmap(gpsArray)
 	
